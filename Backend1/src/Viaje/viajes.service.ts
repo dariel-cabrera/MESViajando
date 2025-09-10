@@ -1,4 +1,4 @@
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+/*import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { Viaje } from 'src/entity/viajes.entity';
 import { Profesor } from 'src/entity/profesor.entity';
 import { Chofer } from 'src/entity/chofer.entity';
@@ -123,4 +123,4 @@ export class ViajesService {
   }
   
 
-}
+} */

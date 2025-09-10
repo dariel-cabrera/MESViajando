@@ -1,26 +1,22 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { envs } from './config';
+import { TarifaModule } from './Tarifa/tarifa.module';
+import { ProfesorModule } from './Profesor/profesor.module';
+import { ChoferModule } from './Chofer/chofer.module';
+import { SeedService } from './config/admin.seeder';
+import { DatabaseModule } from './config/database.module';
+import { MongooseModule } from '@nestjs/mongoose';
+
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true, // Hace que las variables estén disponibles en toda la aplicación
-    }),
-    TypeOrmModule.forRoot({
-      type: 'mariadb',
-      host: process.env.DB_HOST,
-      port: +process.env.DB_PORT, // Convertir a número
-      username: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE,
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
+  DatabaseModule,
+  TarifaModule,
+  ProfesorModule,
+  ChoferModule,
+  MongooseModule.forRoot(envs.mongo_uri)
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [SeedService],
 })
 export class AppModule {}

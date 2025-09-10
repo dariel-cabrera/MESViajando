@@ -1,32 +1,33 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { VersioningType } from '@nestjs/common';
+import {  ValidationPipe } from '@nestjs/common';
+import { envs } from './config';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { abortOnError: false });
-  app.enableCors({
-      origin: 'localhost:3000',
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-      credentials: true,
-  });
+  const app = await NestFactory.create(AppModule);
   
-  app.enableVersioning({
-    type: VersioningType.URI,
-    defaultVersion: '1',
-  });
+ // Configuración de CORS
+  app.enableCors({
 
-  // Configuración de Swagger
-  const config = new DocumentBuilder()
-    .setTitle('Mi API')
-    .setDescription('Descripción de mi API')
-    .setVersion('1.0')
-    .addTag('ejemplo')
-    .build();
+  origin: (origin, callback) => {
+    const whitelist = [
+      envs.app_url_client,
+      envs.app_url_api,
+    ];
+    if (!origin || whitelist.includes(origin.replace(/\/$/, ''))) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+});
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api-docs', app, document); // Ruta para acceder a la documentación
+// Configuración de validación global
+  app.useGlobalPipes(new ValidationPipe());
 
-  await app.listen(process.env.PORT ?? 3000);
+
+  await app.listen(envs.port);
+  console.log(`Backend running on port ${envs.port}`)
 }
 bootstrap();
