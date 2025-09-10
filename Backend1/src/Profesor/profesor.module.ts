@@ -12,6 +12,6 @@ import { Profesor,ProfesorSchema } from 'src/entity/profesor.entity';
   ],
   controllers: [ProfesorController],
   providers: [ProfesorService],
-  exports: [ProfesorService],
+  exports: [MongooseModule],
 })
 export class ProfesorModule {}

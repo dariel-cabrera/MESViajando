@@ -1,7 +1,7 @@
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import * as bcrypt from 'bcrypt';
+import * as bcryptjs from 'bcryptjs';
 import { Profesor } from 'src/entity/profesor.entity';
 
 
@@ -25,8 +25,8 @@ export class SeedService implements OnApplicationBootstrap {
         return;
       }
 
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash('secret', salt);
+      const salt = await bcryptjs.genSalt(10);
+      const hashedPassword = await bcryptjs.hash('secret', salt);
 
       const user = new this.userModel({
         usuario: 'Decano',
