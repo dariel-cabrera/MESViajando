@@ -10,12 +10,6 @@ export class Persona extends Document {
   @Prop({ type: String, required: true })
   apellido: string;
   @Prop({ type: String, required: true })
-  usuario: string;
-  @Prop({ type: String, required: true })
-  contrasena: string;
-  @Prop({ type: String, required: true })
-  correo: string;
-  @Prop({ type: String, required: true })
   ci: string;
 }
 

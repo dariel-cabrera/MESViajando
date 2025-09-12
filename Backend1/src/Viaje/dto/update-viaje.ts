@@ -1,31 +1,32 @@
 // viajes/dto/create-viaje.dto.ts
-import { IsString, IsNumber, IsDate, IsArray, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsString, IsNumber, IsDate, IsArray, IsNotEmpty, IsOptional, ValidateNested, IsMongoId } from 'class-validator';
 import { Type } from 'class-transformer';
 
+
+// update-viaje.dto.ts (puede ser parcial)
 export class UpdateViajeDto {
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  destino: string;
+  nombre?:string;
 
+  @IsOptional()
+  @IsArray()
+  destinos?: string[];
+
+  @IsOptional()
   @IsNumber()
-  @IsNotEmpty()
-  capacidad: number;
+  capacidad?: number;
 
+  @IsOptional()
   @IsDate()
   @Type(() => Date)
-  @IsNotEmpty()
-  fecha: Date;
+  fecha?: Date;
 
-  @IsString()
-  @IsNotEmpty()
-  chofer: string; // ID del chofer
-
-  @IsArray()
   @IsOptional()
-  @IsString({ each: true })
-  listaPasajeros?: string[]; // Array de IDs de profesores
+  @IsMongoId()
+  chofer?: string;
 
+  @IsOptional()
   @IsNumber()
-  @IsOptional()
-  tarifa?: number; // Agregado basado en la tabla de tarifas
+  recaudacionTotal?: number;
 }

@@ -2,13 +2,13 @@ import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcryptjs from 'bcryptjs';
-import { Profesor } from 'src/entity/profesor.entity';
+import { User } from 'src/entity/usuarios.entity';
 
 
 @Injectable()
 export class SeedService implements OnApplicationBootstrap {
   constructor(
-    @InjectModel(Profesor.name) private userModel: Model<Profesor>,
+    @InjectModel(User.name) private userModel: Model<User>,
     
   ) {}
 
@@ -29,11 +29,14 @@ export class SeedService implements OnApplicationBootstrap {
       const hashedPassword = await bcryptjs.hash('secret', salt);
 
       const user = new this.userModel({
-        usuario: 'Decano',
-        name: 'Admin',
+        user_name: 'Admin',
+        rol:'admin',
+        nombre: 'Admin',
         apellido: 'Admin',
         ci: '0000000000',
-        contrasena: hashedPassword,
+        email: 'admin@jsonapi.com',
+        password: hashedPassword,
+
       });
 
       await user.save();

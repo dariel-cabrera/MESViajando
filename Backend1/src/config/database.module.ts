@@ -1,11 +1,11 @@
 import { Module, Global } from '@nestjs/common';
 import { SeedService } from './admin.seeder';
-import { ProfesorModule } from 'src/Profesor/profesor.module';
+import { UserModule } from 'src/Usuarios/user.module';
 
 @Global()
 @Module({
   imports: [
-    ProfesorModule,
+    UserModule,
     
   ],
   providers: [SeedService],

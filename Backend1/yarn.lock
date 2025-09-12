@@ -4666,6 +4666,11 @@ node-releases@^2.0.18:
   resolved "https://registry.npmjs.org/node-releases/-/node-releases-2.0.18.tgz"
   integrity sha512-d9VeXT4SJ7ZeOqGX6R5EM022wpL+eWPooLI+5UpWn2jCT1aosUQEhQP214x33Wkwx3JQMvIm+tIoVOdodFS40g==
 
+nodemailer@^7.0.6:
+  version "7.0.6"
+  resolved "https://registry.npmjs.org/nodemailer/-/nodemailer-7.0.6.tgz"
+  integrity sha512-F44uVzgwo49xboqbFgBGkRaiMgtoBrBEWCVincJPK9+S9Adkzt/wXCLKbf7dxucmxfTI5gHGB+bEmdyzN6QKjw==
+
 normalize-path@^3.0.0, normalize-path@~3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/normalize-path/-/normalize-path-3.0.0.tgz"
@@ -5021,6 +5026,11 @@ queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
+
+random-token@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.npmjs.org/random-token/-/random-token-0.0.8.tgz"
+  integrity sha512-L8osVTR9ZWUNs24m+/S0ibg5aveCme6+nEDmbzqdEog0skWDsTFXs8Y06Zt9y1a9jzZ70gomX9BaMqntYlN+IQ==
 
 randombytes@^2.1.0:
   version "2.1.0"

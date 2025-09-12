@@ -7,10 +7,7 @@ import { Types } from 'mongoose';
 export class Chofer extends Persona  {
   @Prop({ type: String, required: true })
   NoLicencia: string;
-
-  @Prop([{ type: Types.ObjectId, ref: 'Viaje' }])
-  viajes: Types.ObjectId[]
-
+  
 }
 
 // ✅ Se exporta con un nombre coherente
