@@ -11,7 +11,7 @@ import { ProfesorService } from './profesor.service';
 import { CreateProfesorDto } from './dto/create-profesor.dto';
 import { UpdateProfesorDto } from './dto/update-profesor.dto';
 
-@Controller('profesores')
+@Controller()
 export class ProfesorController {
   constructor(private readonly profesorService: ProfesorService) {}
 
@@ -20,7 +20,7 @@ export class ProfesorController {
     return this.profesorService.createProfesor(createProfesorDto);
   }
 
-  @Get()
+  @Get('getProfesores')
   findAll() {
     return this.profesorService.findAllProfesores();
   }

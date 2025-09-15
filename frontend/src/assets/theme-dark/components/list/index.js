@@ -13,17 +13,13 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// Material Dashboard 2 React Helper Functions
-import pxToRem from "assets/theme/functions/pxToRem";
-
-const cardContent = {
+const list = {
   styleOverrides: {
-    root: {
-      marginTop: 0,
-      marginBottom: 0,
-      padding: `${pxToRem(8)} ${pxToRem(24)} ${pxToRem(24)}`,
+    padding: {
+      paddingTop: 0,
+      paddingBottom: 0,
     },
   },
 };
 
-export default cardContent;
+export default list;

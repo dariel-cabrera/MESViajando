@@ -1,8 +1,10 @@
 
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
+
 import Users from "layouts/users";
 import Trazas from "layouts/trazas";
+import Profesores from "layouts/profesores";
 
 
 
@@ -17,9 +19,9 @@ import ResetPassword from "auth/reset-password";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
-
 import TrazasImg from "assets/images/trazas.png";
 import UserImg from "assets/images/user.png";
+import CalculationImg from "assets/images/calculation.png";
 import InicioImg from "assets/images/inicio.png";
 
  
@@ -80,7 +82,7 @@ const routes = [
   },
 
   // Rutas protegidas
-  {
+  /*{
     type: "collapse",
     name: "Inicio",
     key: "inicio",
@@ -90,8 +92,17 @@ const routes = [
     adminOnly: false, // Accesible para todos los roles
     showInMenu: true
   },
-  
-  
+   
+  {
+    type: "collapse",
+    name: "Cálculos",
+    key: "calculos",
+    icon: <ImageIcon src={CalculationImg} alt="Calculos" fontSize="small" />,
+    route: "/calculation",
+    component: <Calculation />,
+    adminOnly: false, // Accesible para todos
+    showInMenu: true
+  }, */
   {
     type: "collapse",
     name: "Usuarios",
@@ -99,6 +110,16 @@ const routes = [
     icon: <ImageIcon src={UserImg} alt="Usuarios" fontSize="small" />,
     route: "/users",
     component: <Users />,
+    adminOnly: true, // SOLO ADMINISTRADORES
+    showInMenu: true
+  },
+  {
+    type: "collapse",
+    name: "Profesores",
+    key: "profesores",
+    icon: <ImageIcon src={UserImg} alt="Profesores" fontSize="small" />,
+    route: "/profesores",
+    component: <Profesores />,
     adminOnly: true, // SOLO ADMINISTRADORES
     showInMenu: true
   },
@@ -112,7 +133,7 @@ const routes = [
     adminOnly: true, // SOLO ADMINISTRADORES
     showInMenu: true
   },
-  
+
   
   {
     type: "collapse",

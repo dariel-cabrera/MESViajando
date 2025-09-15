@@ -14,20 +14,9 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 
-// Cards & Charts
-import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
-import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
-import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
-// Services
-import CalculationService from "services/calculation-service";
-import UbicacionService from "services/ubicacion-service";
 import UserService from "services/user-service";
 
-// Componentes personalizados
-import QTrendChart from "./components/QTrendChart";
-import PTrendChart from "./components/PTrendChart";
-import KTrendChart from "./components/KTrendChart";
 
 // Imágenes
 import PlayaIco from "assets/images/playa3.png";
@@ -86,10 +75,8 @@ const ImageIcon = ({ src, alt, fontSize = "small" }) => {
 
 // Componente principal
 function Dashboard() {
-  const [calculos, setCalculos] = useState([]);
+  
   const [loading, setLoading] = useState(true);
-  const [ciudades, setCiudades] = useState([]);
-  const [ubicaciones, setUbicaciones] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
   const [error, setError] = useState(null);
 
@@ -109,25 +96,11 @@ function Dashboard() {
     setLoading(true);
     setError(null);
     try {
-      const [calculations, locations, city, user] = await Promise.all([
-        CalculationService.getCalculation(),
-        CalculationService.getLocations(),
-        UbicacionService.getCiudades(),
+      const  user = await Promise.all([
+      
         UserService.getUsers(),
       ]);
 
-      if (!Array.isArray(calculations)) {
-        throw new Error("Respuesta inválida de cálculos");
-      }
-
-      const normalizedLocations = Array.isArray(locations)
-        ? locations.filter((loc) => loc && String(loc).trim() !== "")
-        : [];
-
-      setCalculos(calculations);
-      setUbicaciones(normalizedLocations);
-      setCiudades(city);
-      DataTrazas.crear({ accion: "Vió el Inicio" });
       setUsuarios(user);
     } catch (error) {
       setError(error.message);
@@ -151,26 +124,8 @@ function Dashboard() {
         <LoadingIndicator />
       ) : (
         <MDBox py={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={3}>
-              <MDBox mb={1.5}>
-                <ComplexStatisticsCard
-                  color="dark"
-                  icon={<ImageIcon src={CalculosImg} alt="Calculos" />}
-                  title="Cálculos Realizados"
-                  count={calculos.length}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MDBox mb={1.5}>
-                <ComplexStatisticsCard
-                  icon={<ImageIcon src={PlayaIco} alt="Áreas Estudiadas" />}
-                  title="Áreas Estudiadas"
-                  count={ubicaciones.length}
-                />
-              </MDBox>
-            </Grid>
+          
+            
             <Grid item xs={12} md={6} lg={3}>
               <MDBox mb={1.5}>
                 <ComplexStatisticsCard
@@ -181,17 +136,8 @@ function Dashboard() {
                 />
               </MDBox>
             </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MDBox mb={1.5}>
-                <ComplexStatisticsCard
-                  color="primary"
-                  icon={<ImageIcon src={UbicacionImg} alt="Provincias" />}
-                  title="Provincias"
-                  count={ciudades.length}
-                />
-              </MDBox>
-            </Grid>
-          </Grid>
+           
+        
 
           {/* Sección de gráficos */}
           <MDBox mt={4.5}>
@@ -220,4 +166,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Dashboard; 

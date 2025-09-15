@@ -19,7 +19,7 @@ export class ReservasService {
 
   ) {}
 
-    // Crear un nuevo viaje con tarifas automáticas por destino
+    // Crear una Reservas
   async create(createReservasDto: CreateReservasDto): Promise<Reservas> {
     
     const profesorExists = await this.profesorModel.findById(createReservasDto.profesor);
@@ -53,7 +53,7 @@ export class ReservasService {
         const recaudacionTotal= recaudacion + tarifa
         const updateViajes = {
           recaudacionTotal :recaudacionTotal
-        }'
+        }
         this.viajesService.update(viajeExistente._id.toString(), updateViajes)
     }
 
@@ -68,9 +68,8 @@ export class ReservasService {
     return nuevaReserva.save();
   
   }
-   
-  
 
+  // Funcion para saber en que semestre se esta haciendo la reserva
   private obtenerSemestre(fecha: Date): string {
     const mes = fecha.getMonth() + 1;
     if (mes >= 10 || mes <= 3) {
@@ -82,22 +81,56 @@ export class ReservasService {
     }
   }
 
-  
-    
-    
-  
-  
       // ✅ Función pública para verificar si un profesor viajó en un semestre específico
     async verificarViajeEnSemestre(profesorId: string, semestre: string): Promise<boolean> {
 
-        // Buscar reservas del profesor en el mismo semestre
-        const reservaExistente = await this.reservaModel.findOne({
-            profesor: profesorId,
-           semestre: semestre,
-        });
+      // Buscar reservas del profesor en el mismo semestre
+      const reservaExistente = await this.reservaModel.findOne({
+        profesor: profesorId,
+        semestre: semestre,
+      });
 
-        return !!reservaExistente;
+      return !!reservaExistente;
     }
+
+
+    // Buscar un pasajero en un viaje determinado
+    async buscarProfesorCIFecha(ci: string, fecha:Date):Promise<Reservas>{
+      const profesor = await this.profesorModel.findOne({
+        ci:ci
+      })
+
+      if (!profesor) {
+        throw new NotFoundException('Profesor no encontrado');
+      }
+
+      const ReservaEncontrada = await this.reservaModel.findOne({
+        profesor:profesor._id,
+        fecha:fecha,
+      })
+       
+      if(!ReservaEncontrada){
+          throw new NotFoundException('En esa Fecha no hay Rerservas realizadas por ese Profesor');
+      }
+
+      return ReservaEncontrada;
+    }
+
+     // Contar la cantidad de Viajes realizados por un profesor
+     async countViajeProfesor (ci: string): Promise<number> {
+     const profesor = await this.profesorModel.findOne({
+        ci:ci
+      })
+
+      if (!profesor) {
+        throw new NotFoundException('Profesor no encontrado');
+      }
+
+    // Contar los viajes del chofer
+    const count = await this.reservaModel.countDocuments({ profesor: profesor._id }).exec();
+  
+    return count;
+ }
   
 
 }
